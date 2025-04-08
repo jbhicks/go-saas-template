@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/jbhicks/city-tiers/internal/auth"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/core"
+	"github.com/yourusername/go-saas-template/internal/auth"
 )
 
 // loggingMiddleware logs information about incoming HTTP requests
@@ -80,6 +80,8 @@ func main() {
 	authRouter.HandleFunc("/login", auth.LoginHandler).Methods("GET", "POST")
 	authRouter.HandleFunc("/register", auth.RegisterHandler).Methods("GET", "POST")
 	authRouter.HandleFunc("/logout", auth.LogoutHandler).Methods("GET")
+	authRouter.HandleFunc("/forgot-password", auth.ForgotPasswordHandler).Methods("GET", "POST")
+	authRouter.HandleFunc("/reset-password", auth.ResetPasswordHandler).Methods("GET", "POST")
 
 	// PocketBase auth API forwarding
 	apiRouter := r.PathPrefix("/api").Subrouter()
@@ -90,17 +92,7 @@ func main() {
 	protectedRouter.Use(auth.AuthMiddleware)
 
 	// Dashboard/Home page (protected)
-	protectedRouter.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Check if user is authenticated (this is redundant with the middleware, but just as an example)
-		user := auth.GetCurrentUser(r)
-		if user == nil {
-			http.Redirect(w, r, "/auth/login", http.StatusSeeOther)
-			return
-		}
-
-		// In a real app, you would render a template with user data
-		w.Write([]byte("Welcome to City Tiers! You're logged in."))
-	})
+	protectedRouter.HandleFunc("/", auth.HomeRenderer)
 
 	log.Printf("🚀 Starting HTTP server on port %s (http://localhost:%s)", port, port)
 	log.Println("Press Ctrl+C to stop the server")

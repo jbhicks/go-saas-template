@@ -36,7 +36,11 @@
             color: red;
             margin-bottom: 15px;
         }
-        .register-link {
+        .success {
+            color: green;
+            margin-bottom: 15px;
+        }
+        .links {
             margin-top: 15px;
         }
     </style>
@@ -46,6 +50,10 @@
     
     {{if .Error}}
     <div class="error">{{.Error}}</div>
+    {{end}}
+    
+    {{if .Success}}
+    <div class="success">{{.Success}}</div>
     {{end}}
     
     <form method="POST" action="/auth/login">
@@ -62,8 +70,9 @@
         <button type="submit">Login</button>
     </form>
     
-    <div class="register-link">
-        Don't have an account? <a href="/auth/register">Register</a>
+    <div class="links">
+        <div>Don't have an account? <a href="/auth/register">Register</a></div>
+        <div style="margin-top: 10px;">Forgot your password? <a href="/auth/forgot-password">Reset it here</a></div>
     </div>
 </body>
 </html>

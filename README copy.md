@@ -1,110 +1,48 @@
-# city-tiers
+# Go SaaS Template
 
-Helping keep track of all your favorite things.
+A ready-to-use template for building SaaS applications with Go.
 
 ## Project Overview
-City Tiers is a web application that helps users categorize and rank their favorite places, activities, and things within a city. Users can create lists organized by category (restaurants, parks, attractions) and assign tier rankings (S, A, B, C, etc.).
+This is a general purpose Go SaaS template that provides a solid foundation for building web applications. It includes authentication, database integration, and a simple web interface to get you started quickly.
 
 ## Tech Stack
 - **Backend**: Go with [Gorilla Mux](https://github.com/gorilla/mux) router
-- **Frontend**: HTMX/CSS/JavaScript when no other choice is available
-- **Database**: Pocketbase
+- **Frontend**: HTMX/CSS/JavaScript for interactive UI components
+- **Database**: [PocketBase](https://pocketbase.io/) for data storage and authentication
 
 ## Core Features
-- [x] Pocketbase backend setup
-  - [ ] Define your collections in Pocketbase for Users, Categories, and Places
-  - [ ] Use Pocketbase's built-in auth for user management
-  - [ ] Set up proper permissions on your collections
-- [ ] Create your HTMX frontend to interact with Pocketbase API
-- [ ] User authentication
-- [ ] Create/edit/delete categories 
-- [ ] Add places to categories with tier rankings
-- [ ] View all places by category or by tier
-- [ ] Map integration to visualize places
-- [ ] Share lists with others
+- [x] PocketBase backend integration
+  - [x] Built-in authentication
+  - [ ] Define your custom collections
+  - [ ] Set up proper permissions for your data model
+- [x] User authentication flows
+  - [x] Login/Register
+  - [x] Password reset
+- [ ] Ready-to-customize templates
+- [ ] API endpoints for your business logic
+- [ ] Dockerized development environment
 
-## Data Models
-
-```go
-// User represents a registered user
-type User struct {
-    ID       string
-    Username string
-    Email    string
-    Password string // Stored securely
-}
-
-// Category represents a grouping of places (Restaurants, Parks, etc.)
-type Category struct {
-    ID     string
-    Name   string
-    UserID string
-}
-
-// Place represents a location within a city
-type Place struct {
-    ID          string
-    Name        string
-    Description string
-    Address     string
-    CategoryID  string
-    Tier        string // S, A, B, C, etc.
-    UserID      string
-    Latitude    float64
-    Longitude   float64
-}
-```
-
-## API Endpoints
-
-- `GET /api/categories` - List all categories
-- `POST /api/categories` - Create a new category
-- `GET /api/categories/{id}` - Get a specific category
-- `PUT /api/categories/{id}` - Update a category
-- `DELETE /api/categories/{id}` - Delete a category
-- `GET /api/categories/{id}/places` - Get places in a category
-- `POST /api/places` - Create a new place
-- `GET /api/places/{id}` - Get a specific place
-- `PUT /api/places/{id}` - Update a place
-- `DELETE /api/places/{id}` - Delete a place
-
-## Implementation Roadmap
-
-1. **Phase 1**: Basic CRUD operations
-   - Set up database
-   - Implement API endpoints for categories and places
-   - Create basic UI for managing categories and places
-
-2. **Phase 2**: User Authentication
-   - Implement user registration and login
-   - Add user-specific data isolation
-
-3. **Phase 3**: Enhanced Features
-   - Add map visualization
-   - Implement sharing functionality
-   - Add search capabilities
-
-## Development Setup
+## Getting Started
 
 ```bash
 # Clone the repository
-git clone https://github.com/jbhicks/city-tiers.git
+git clone https://github.com/yourusername/go-saas-template.git
 
 # Navigate to the project directory
-cd city-tiers
+cd go-saas-template
 
 # Install dependencies
 go mod download
 
 # Run the application
-go run main.go
+go run cmd/server/main.go
 
 # Access the application
 # Open http://localhost:8080 in your browser
 ```
 
 ## Troubleshooting
-### Complete Reset for Pocketbase Docker
+### Complete Reset for PocketBase Docker
 
 If experiencing caching issues or the volume might not be fully removed, try a more thorough reset:
 

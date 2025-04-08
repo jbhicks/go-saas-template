@@ -1,4 +1,4 @@
-module github.com/jbhicks/city-tiers
+module github.com/yourusername/go-saas-template
 
 go 1.23.0
 
