@@ -6,16 +6,52 @@
     <title>Register - App</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.js"></script>
+    <style>
+        .login-container {
+            background-image: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            backdrop-filter: blur(10px);
+        }
+        .card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .input {
+            transition: border 0.2s ease-in-out;
+        }
+        .input:focus {
+            border-color: hsl(var(--p));
+            box-shadow: 0 0 0 2px hsla(var(--p) / 0.2);
+        }
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px -3px hsla(var(--p) / 0.3);
+        }
+    </style>
 </head>
-<body class="bg-base-200 min-h-screen flex items-center justify-center">
-    <div class="card w-full max-w-sm bg-base-100 shadow-xl">
+<body class="login-container bg-base-200 min-h-screen flex items-center justify-center p-4">
+    <div class="card w-full max-w-sm bg-base-100 shadow-xl backdrop-blur">
         <div class="card-body">
-            <h1 class="card-title text-2xl justify-center">Create Account</h1>
+            <div class="flex justify-center mb-4">
+                <div class="avatar placeholder">
+                    <div class="bg-primary text-primary-content rounded-full w-16">
+                        <span class="text-xl">P</span>
+                    </div>
+                </div>
+            </div>
+            <h1 class="card-title text-2xl justify-center font-bold mb-2">Create Account</h1>
+            <p class="text-center text-sm text-base-content/70 mb-6">Register for a new account</p>
             
             {{if .Error}}
-            <div class="alert alert-error shadow-lg">
+            <div class="alert alert-error shadow-lg text-sm">
                 <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     <span>{{.Error}}</span>
                 </div>
             </div>
@@ -24,34 +60,37 @@
             <form method="POST" action="/auth/register">
                 <div class="form-control">
                     <label class="label">
-                        <span class="label-text">Email</span>
+                        <span class="label-text font-medium">Email</span>
                     </label>
-                    <input type="email" name="email" placeholder="email@example.com" class="input input-bordered" required value="{{.Email}}" />
+                    <input type="email" name="email" placeholder="email@example.com" class="input input-bordered focus:outline-none" required value="{{.Email}}" />
                 </div>
                 
-                <div class="form-control">
+                <div class="form-control mt-3">
                     <label class="label">
-                        <span class="label-text">Password</span>
+                        <span class="label-text font-medium">Password</span>
                     </label>
-                    <input type="password" name="password" placeholder="your password" class="input input-bordered" required />
-                </div>
-                
-                <div class="form-control">
+                    <input type="password" name="password" placeholder="your password" class="input input-bordered focus:outline-none" required />
                     <label class="label">
-                        <span class="label-text">Confirm Password</span>
+                        <span class="label-text-alt text-base-content/70">Must be at least 8 characters</span>
                     </label>
-                    <input type="password" name="confirmPassword" placeholder="confirm password" class="input input-bordered" required />
                 </div>
                 
-                <div class="form-control mt-6">
+                <div class="form-control mt-3">
+                    <label class="label">
+                        <span class="label-text font-medium">Confirm Password</span>
+                    </label>
+                    <input type="password" name="confirmPassword" placeholder="confirm password" class="input input-bordered focus:outline-none" required />
+                </div>
+                
+                <div class="form-control mt-8">
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
             </form>
             
-            <div class="divider text-xs text-base-content/50">OR</div>
+            <div class="divider text-xs text-base-content/50 my-4">OR</div>
             
             <div class="text-sm text-center">
-                <a href="/auth/login" class="link link-hover">Already have an account? Login</a>
+                <a href="/auth/login" class="link link-hover text-primary">Already have an account? Login</a>
             </div>
         </div>
     </div>
