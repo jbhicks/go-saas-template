@@ -1,68 +1,423 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="corporate">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        .logout-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .welcome-box {
-            background-color: #f5f5f5;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .content {
-            margin-top: 30px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <div class="header">
-        <h1>App</h1>
-        <div class="user-info">
-            <span>{{.Email}}</span>
-            <a href="/auth/logout" class="logout-btn" style="margin-left: 15px;">Logout</a>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer lg:drawer-open">
+        <input id="drawer-toggle" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-md z-10">
+                <div class="navbar-start">
+                    <label for="drawer-toggle" class="btn btn-ghost drawer-button lg:hidden">
+                        <i class="fas fa-bars"></i>
+                    </label>
+                </div>
+                <div class="navbar-center lg:hidden">
+                    <a class="btn btn-ghost text-xl">App</a>
+                </div>
+                <div class="navbar-end">
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+                            <div class="bg-neutral text-neutral-content rounded-full w-10">
+                                <span>{{slice .Email 0 1}}</span>
+                            </div>
+                        </div>
+                        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <li class="menu-title px-4 py-2">
+                                <span>{{.Email}}</span>
+                            </li>
+                            <li><a href="/profile"><i class="fas fa-user mr-2"></i> Profile</a></li>
+                            <li><a href="/settings"><i class="fas fa-cog mr-2"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/auth/logout" class="text-error"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page content -->
+            <div class="p-6 pb-16 space-y-6">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold">Dashboard</h1>
+                    <div class="badge badge-primary badge-outline p-3">PRO</div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <i class="fas fa-chart-line fa-2x"></i>
+                        </div>
+                        <div class="stat-title">Total Activity</div>
+                        <div class="stat-value">31K</div>
+                        <div class="stat-desc">Jan 1st - Feb 1st</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div class="stat-title">New Users</div>
+                        <div class="stat-value">4,200</div>
+                        <div class="stat-desc">↗︎ 400 (22%)</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <i class="fas fa-dollar-sign fa-2x"></i>
+                        </div>
+                        <div class="stat-title">Revenue</div>
+                        <div class="stat-value">$25,600</div>
+                        <div class="stat-desc">↗︎ 10% more than last month</div>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <!-- Recent Activity -->
+                    <div class="card bg-base-100 shadow-xl col-span-1 lg:col-span-2">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <i class="fas fa-clock text-primary mr-2"></i>
+                                Recent Activity
+                            </h2>
+                            <div class="overflow-x-auto">
+                                <div class="timeline ml-5">
+                                    <div class="timeline-item">
+                                        <div class="timeline-middle">
+                                            <div class="avatar">
+                                                <div class="w-6 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
+                                                    <img src="https://i.pravatar.cc/150?img=1" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-end mb-5">
+                                            <div class="text-sm font-bold">John updated his profile</div>
+                                            <time class="text-xs opacity-50">2 hours ago</time>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-middle">
+                                            <div class="avatar">
+                                                <div class="w-6 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-1">
+                                                    <img src="https://i.pravatar.cc/150?img=2" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-end mb-5">
+                                            <div class="text-sm font-bold">Lisa created a new project</div>
+                                            <time class="text-xs opacity-50">6 hours ago</time>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-middle">
+                                            <div class="avatar">
+                                                <div class="w-6 rounded-full ring ring-accent ring-offset-base-100 ring-offset-1">
+                                                    <img src="https://i.pravatar.cc/150?img=3" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-end mb-5">
+                                            <div class="text-sm font-bold">Team completed milestone</div>
+                                            <time class="text-xs opacity-50">Yesterday</time>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actions justify-end">
+                                <button class="btn btn-sm btn-ghost">View All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Tasks -->
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <i class="fas fa-tasks text-primary mr-2"></i>
+                                Quick Tasks
+                            </h2>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" class="checkbox checkbox-primary" />
+                                    <span>Prepare project presentation</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" class="checkbox checkbox-primary" checked />
+                                    <span class="line-through opacity-70">Review quarterly report</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" class="checkbox checkbox-primary" />
+                                    <span>Schedule team meeting</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" class="checkbox checkbox-primary" />
+                                    <span>Update client proposal</span>
+                                </div>
+                            </div>
+                            <div class="form-control mt-4">
+                                <div class="join w-full">
+                                    <input type="text" placeholder="Add a new task..." class="input input-bordered join-item w-full" />
+                                    <button class="btn btn-primary join-item">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Projects -->
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <i class="fas fa-project-diagram text-primary mr-2"></i>
+                                Upcoming Projects
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold">Website Redesign</span>
+                                        <span class="text-xs">75%</span>
+                                    </div>
+                                    <progress class="progress progress-primary w-full" value="75" max="100"></progress>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold">Mobile App</span>
+                                        <span class="text-xs">40%</span>
+                                    </div>
+                                    <progress class="progress progress-secondary w-full" value="40" max="100"></progress>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between items-center mb-1">
+                                        <span class="font-bold">Marketing Campaign</span>
+                                        <span class="text-xs">90%</span>
+                                    </div>
+                                    <progress class="progress progress-accent w-full" value="90" max="100"></progress>
+                                </div>
+                            </div>
+                            <div class="card-actions justify-end mt-2">
+                                <button class="btn btn-sm btn-ghost">View All Projects</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Members -->
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <i class="fas fa-users text-primary mr-2"></i>
+                                Team Members
+                            </h2>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="avatar online">
+                                        <div class="w-10 rounded-full">
+                                            <img src="https://i.pravatar.cc/150?img=4" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Alex Johnson</div>
+                                        <div class="text-xs opacity-70">Lead Developer</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="avatar offline">
+                                        <div class="w-10 rounded-full">
+                                            <img src="https://i.pravatar.cc/150?img=5" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Sarah Davis</div>
+                                        <div class="text-xs opacity-70">UI/UX Designer</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="avatar online">
+                                        <div class="w-10 rounded-full">
+                                            <img src="https://i.pravatar.cc/150?img=6" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold">Robert Chen</div>
+                                        <div class="text-xs opacity-70">Product Manager</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actions justify-end mt-2">
+                                <button class="btn btn-sm btn-outline btn-primary mt-2">
+                                    <i class="fas fa-user-plus mr-1"></i>
+                                    Add Member
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calendar -->
+                    <div class="card bg-base-100 shadow-xl">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <i class="fas fa-calendar-alt text-primary mr-2"></i>
+                                Calendar
+                            </h2>
+                            <div class="grid grid-cols-7 text-center gap-1">
+                                <div class="font-bold text-xs">Su</div>
+                                <div class="font-bold text-xs">Mo</div>
+                                <div class="font-bold text-xs">Tu</div>
+                                <div class="font-bold text-xs">We</div>
+                                <div class="font-bold text-xs">Th</div>
+                                <div class="font-bold text-xs">Fr</div>
+                                <div class="font-bold text-xs">Sa</div>
+                                
+                                <div class="text-xs opacity-50">26</div>
+                                <div class="text-xs opacity-50">27</div>
+                                <div class="text-xs opacity-50">28</div>
+                                <div class="text-xs opacity-50">29</div>
+                                <div class="text-xs opacity-50">30</div>
+                                <div class="text-xs opacity-50">31</div>
+                                <div class="text-xs">1</div>
+                                
+                                <div class="text-xs">2</div>
+                                <div class="text-xs">3</div>
+                                <div class="text-xs">4</div>
+                                <div class="text-xs badge badge-primary badge-sm">5</div>
+                                <div class="text-xs">6</div>
+                                <div class="text-xs">7</div>
+                                <div class="text-xs">8</div>
+                                
+                                <div class="text-xs">9</div>
+                                <div class="text-xs badge badge-secondary badge-sm">10</div>
+                                <div class="text-xs">11</div>
+                                <div class="text-xs">12</div>
+                                <div class="text-xs">13</div>
+                                <div class="text-xs">14</div>
+                                <div class="text-xs">15</div>
+                                
+                                <div class="text-xs">16</div>
+                                <div class="text-xs">17</div>
+                                <div class="text-xs">18</div>
+                                <div class="text-xs">19</div>
+                                <div class="text-xs badge badge-accent badge-sm">20</div>
+                                <div class="text-xs">21</div>
+                                <div class="text-xs">22</div>
+                            </div>
+                            <div class="divider text-xs opacity-70">UPCOMING EVENTS</div>
+                            <div class="space-y-2">
+                                <div class="text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-primary badge-xs"></div>
+                                        <div class="font-bold">Team Meeting</div>
+                                    </div>
+                                    <div class="text-xs opacity-70 ml-5">April 5, 10:00 AM</div>
+                                </div>
+                                <div class="text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-secondary badge-xs"></div>
+                                        <div class="font-bold">Client Call</div>
+                                    </div>
+                                    <div class="text-xs opacity-70 ml-5">April 10, 2:30 PM</div>
+                                </div>
+                                <div class="text-sm">
+                                    <div class="flex items-center gap-2">
+                                        <div class="badge badge-accent badge-xs"></div>
+                                        <div class="font-bold">Product Launch</div>
+                                    </div>
+                                    <div class="text-xs opacity-70 ml-5">April 20, 9:00 AM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="welcome-box">
-        <h2>Welcome to App!</h2>
-        <p>You are successfully logged in as <strong>{{.Email}}</strong>.</p>
-    </div>
-
-    <div class="content">
-        <h3>Your Dashboard</h3>
-        <p>This is your personalized dashboard. More features will be added soon.</p>
         
-        <!-- Add more dashboard content here -->
+        <!-- Sidebar -->
+        <div class="drawer-side">
+            <label for="drawer-toggle" class="drawer-overlay"></label>
+            <aside class="bg-base-100 w-72 h-full">
+                <div class="p-4 font-bold text-2xl flex items-center gap-2 border-b">
+                    <div class="text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                            <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.365 54.365 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.127 56.127 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
+                            <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.71 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.55 48.55 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                            <path d="M4.462 19.462c.42-.419.753-.89.986-1.4.233.51.566.981.986 1.4.42.42.89.753 1.4.986-.51.233-.981.566-1.4.986-.42.42-.753.89-.986 1.4-.233-.51-.566-.981-.986-1.4-.42-.42-.89-.753-1.4-.986.51-.233.981-.566 1.4-.986Z" />
+                        </svg>
+                    </div>
+                    App
+                </div>
+                <ul class="menu menu-lg p-4 [--tab-radius:0.5rem]">
+                    <li>
+                        <a class="active">
+                            <i class="fas fa-tachometer-alt mr-2"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fas fa-chart-bar mr-2"></i>
+                            Analytics
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fas fa-project-diagram mr-2"></i>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fas fa-tasks mr-2"></i>
+                            Tasks
+                            <span class="badge badge-primary badge-sm">5</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            Calendar
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fas fa-inbox mr-2"></i>
+                            Messages
+                            <span class="badge badge-error badge-sm">3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <details>
+                            <summary>
+                                <i class="fas fa-cog mr-2"></i>
+                                Settings
+                            </summary>
+                            <ul>
+                                <li><a>Profile</a></li>
+                                <li><a>Notifications</a></li>
+                                <li><a>Security</a></li>
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+                <div class="px-4 pb-4 absolute bottom-0 w-full">
+                    <div class="card bg-base-300">
+                        <div class="card-body p-4">
+                            <h3 class="card-title text-sm">Storage Usage</h3>
+                            <progress class="progress progress-primary w-full" value="68" max="100"></progress>
+                            <p class="text-xs">68% of 10GB used</p>
+                            <button class="btn btn-sm btn-outline btn-primary w-full mt-2">Upgrade</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
     </div>
 </body>
 </html>

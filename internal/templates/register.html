@@ -1,83 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .error {
-            color: red;
-            margin-bottom: 15px;
-        }
-        .success {
-            color: green;
-            margin-bottom: 15px;
-        }
-        .links {
-            margin-top: 15px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.js"></script>
 </head>
-<body>
-    <h1>Register for App</h1>
-    
-    {{if .Error}}
-    <div class="error">{{.Error}}</div>
-    {{end}}
-    
-    {{if .Success}}
-    <div class="success">{{.Success}}</div>
-    {{end}}
-    
-    <form method="POST" action="/auth/register">
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required value="{{.Email}}">
-        </div>
+<body class="font-sans bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-6">Register for App</h1>
         
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
+        {{if .Error}}
+        <div class="alert alert-error mb-4">{{.Error}}</div>
+        {{end}}
         
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required>
-        </div>
+        {{if .Success}}
+        <div class="alert alert-success mb-4">{{.Success}}</div>
+        {{end}}
         
-        <button type="submit">Register</button>
-    </form>
-    
-    <div class="links">
-        <div>Already have an account? <a href="/auth/login">Login</a></div>
-        <div style="margin-top: 10px;">Forgot your password? <a href="/auth/forgot-password">Reset it here</a></div>
+        <form method="POST" action="/auth/register">
+            <div class="form-control mb-4">
+                <label class="label" for="email">
+                    <span class="label-text">Email:</span>
+                </label>
+                <input type="email" id="email" name="email" required value="{{.Email}}" class="input input-bordered w-full" />
+            </div>
+            
+            <div class="form-control mb-4">
+                <label class="label" for="password">
+                    <span class="label-text">Password:</span>
+                </label>
+                <input type="password" id="password" name="password" required class="input input-bordered w-full" />
+            </div>
+            
+            <div class="form-control mb-4">
+                <label class="label" for="confirmPassword">
+                    <span class="label-text">Confirm Password:</span>
+                </label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required class="input input-bordered w-full" />
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-full">Register</button>
+        </form>
+        
+        <div class="mt-4 text-center">
+            <div class="mb-2">Already have an account? <a href="/auth/login" class="link link-primary">Login</a></div>
+            <div>Forgot your password? <a href="/auth/forgot-password" class="link link-primary">Reset it here</a></div>
+        </div>
     </div>
 </body>
 </html>
